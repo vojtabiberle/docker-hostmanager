@@ -124,6 +124,11 @@ $ docker run -d -e DOMAIN_NAME=test.com,www.test.com my_image
 
 To run test, execute the following command : `vendor/bin/phpunit --configuration phpunit.xml.dist`
 
+### Plans
+
+ - Logging to stdout/stderr
+ - Better write format in `/etc/hosts`
+
 ### LICENSE
 
 [MIT](https://opensource.org/licenses/MIT)
