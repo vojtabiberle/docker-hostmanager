@@ -1,2 +1,6 @@
 /vendor/
 /bin/docker-hostmanager.phar
+/box.phar
+/.idea
+/.vscode
+/.phpunit.result.cache

@@ -136,6 +136,8 @@ class Synchronizer
                     $hosts[] = $alias.'.'.$networkName;
                 }
 
+                $hosts = array_merge($hosts, $this->getContainerHosts($container));
+
                 $lines[$ip] = sprintf('%s%s', isset($lines[$ip]) ? $lines[$ip].' ' : '', implode(' ', $hosts));
             }
         }

@@ -1,4 +1,4 @@
-FROM iamluc/composer
+FROM composer
 
 ADD . /usr/local/src/docker-hostmanager
 

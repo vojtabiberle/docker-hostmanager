@@ -6,7 +6,7 @@ docker-hostmanager
 Update automatically your `/etc/hosts` to access running containers.
 Inspired by `vagrant-hostmanager`.
 
-Project homepage: [https://github.com/iamluc/docker-hostmanager](https://github.com/iamluc/docker-hostmanager)
+Project homepage: [https://github.com/vojtabiberle/docker-hostmanager](https://github.com/vojtabiberle/docker-hostmanager)
 
 ### USAGE
 
@@ -15,14 +15,14 @@ Project homepage: [https://github.com/iamluc/docker-hostmanager](https://github.
 The easiest way is to use the docker image
 
 ```console
-$ docker run -d --name docker-hostmanager --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /etc/hosts:/hosts iamluc/docker-hostmanager
+$ docker run -d --name docker-hostmanager --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /etc/hosts:/hosts vojtabiberle/docker-hostmanager
 ```
 
 *Note: the `--restart=always` option will make the container start automatically with your computer (recommended).*
 
 #### Mac OS
 
-Download the PHAR executable here : https://github.com/iamluc/docker-hostmanager/releases
+Download the PHAR executable here : https://github.com/vojtabiberle/docker-hostmanager/releases
 
 And then run it:
 
@@ -51,7 +51,7 @@ $ sudo route -n add 172.0.0.0/8 $(docker-machine ip $(docker-machine active))
 If the host, dont use Docker ToolBox or not a Windows 10 PRO, then needs to mount the /c/Windows folder onto VirtualBox.
 
 ```console
-$ docker run -d --name docker-hostmanager --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /c/Windows/System32/drivers/etc/hosts:/hosts iamluc/docker-hostmanager
+$ docker run -d --name docker-hostmanager --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /c/Windows/System32/drivers/etc/hosts:/hosts vojtabiberle/docker-hostmanager
 ```
 
 After run the container we need to add a route to access container subnets.
@@ -74,7 +74,7 @@ version: '2'
 
 services:
     web:
-        image: iamluc/symfony
+        image: php
         volumes:
             - .:/var/www/html
 ```
@@ -91,7 +91,7 @@ networks:
 
 services:
     web:
-        image: iamluc/symfony
+        image: php
         volumes:
             - .:/var/www/html
 
@@ -111,6 +111,9 @@ The `mysql` container will be accessible with `mysql.myapp` or `bdd.myapp`
 When a container has no defined network (only the default "bridge" one), it is accessible by its container name, concatened with the defined TLD (`.docker` by default).
 It is the case when you run a single container with the `docker` command or when you use a `docker-compose.yml` file in version 1.
 
+
+#### Custom domain name
+
 The `DOMAIN_NAME` environment variable lets you define additional hosts for your container.
 e.g.:
 ```
@@ -119,7 +122,7 @@ $ docker run -d -e DOMAIN_NAME=test.com,www.test.com my_image
 
 ### Tests
 
-To run test, execute the following command : `vendor/bin/phpunit`
+To run test, execute the following command : `vendor/bin/phpunit --configuration phpunit.xml.dist`
 
 ### LICENSE
 

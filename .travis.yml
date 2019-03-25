@@ -1,11 +1,17 @@
 language: php
 sudo: false
-php: 5.6
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+services:
+  - docker
 
 cache:
   directories:
-    - vendor
-    - $HOME/.composer/cache
+  - vendor
+  - "$HOME/.composer/cache"
 
 install: composer install --prefer-source
 
@@ -17,9 +23,12 @@ before_deploy:
 
 deploy:
   provider: releases
-  skip_cleanup: true
   api_key:
-    secure: "xYPmNWQNTRqLSQinnM64dRqDGAm6bKYODFmGdVLwjNqbICMHR0/sF00EPwBgIsXF100xbnjgJVRXD7lbL7nUYXWyzR2EcaW8yOxhYC0BYQMpOGI6RF0p+sMskCI5hb8Y+FT++nQZTwHPo9MtrAv2ec5r42RO2K0YM6WS6URsCqbTQnDtWcLReszRrLGVy41tkdlse9uqk63IbJmRwLunMkQBJ/BhVSRDl5Qm+Q3aDhjckZanX4QH0UrR75azut3CUIQ1l/wVF9dhKPHuvIc5+3qwkxqgOmaBFozE2hvlviWCunQsZMpaWG9L3v19VzuvypDvvvK+rhwytXsOO2gz0JGh/AL6TsonGqePYdESE7tBZ+sJz5tZ0q0yqEOLGSlxa7i5bF3KN3PCqK8eBdgBHWWDnWgO0blmPFKLYaehxZqnDHr8w5bHlW2yS1fYq8X5zkmz1fbkjpPFXX6TWsm8imlKsqzhSPBTrF+E/6f91TOLlv7tXIA0hi7Ex4ZOuzUCSs6qYWfPYPKWnguL8kmkG9wKnFahQwxVz2CM2ZPxhNQ8j03ao+wkBr6+pt6KhghqYJQ83c5GrzDXJWXbpuNdFt+RfPVLT0w17tWj3H80b/QZFa2TKQtSZ41jnAKPHHt3m178s3DfpQ6Hf1Zi1kvru0jiGKdph94j7zcYeB7uV3A="
+    secure: R18a+x1dIMitk7Aq5WgqDS6izrgcgAcpuqo7AqJk8RuoBqrRLT36GlKrnDSKDSI71U18CQJXmfDBeI4q3R0BD+zJJ/W9uv9g25YFlbFhdAyBlwdC7GRod+XreUOQGRDBj8PpywmxCKZrKlhftu1Yw+9p3ezDcHyQMnaUODmh11Mn2UpX1AxJePSKcsh01hbyXzKmjiyV4TBXhhEAW3diONuGVTgou5OES2925REmoD5tEMKEhS8gQ9Z2fQGNlCjYh6rkX/N2oY6zgs9zrNCEmfvaAHfsPkmnlvwsQPmRXW5PH/bBGIRFpotsIFOkeZurwpy5OkwoiV2Revxbm4sivcV9ogxRHt+MhsbQZOGmsGKvc4JtGU9gy8LGxnJXyfcKhw/gGVRXeBikZeGbnG1C8qisFBIouK7wtRb6F/qsuXMb5l4nbKaUTFM3dg8yaEygbp9vEsCShaH149gFGaAChJvSOsdDUr4/bCCDaEDhAdV+bcIjMexDd79UHOrddE0B6EWGctXzWRzn495oz1we/7B7CmFZ0wzfMjDeysukFQj7GZTFPwWIHiXMKpCiDQc9w+rWjqh3DFwNmqa8eH+hGQRQ8Dl7TpoE1ucUZQwpSiF0ES1MYlcK66bteAPolQp8Iux1IIMOBsQ2VBmxjajMXTu6ZDvrD3l8il4SE+E6QT8=
   file: bin/docker-hostmanager.phar
   on:
-    tags: true
+    repo: vojtabiberle/docker-hostmanager
+
+after_deploy:
+  - docker build -t vojtabiberle/docker-hostmanager .
+  - docker_push.sh

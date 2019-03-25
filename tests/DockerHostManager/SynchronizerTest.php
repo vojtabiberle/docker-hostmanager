@@ -4,9 +4,10 @@ namespace Test\DockerHostManager;
 
 use Docker\Docker;
 use DockerHostManager\Synchronizer;
+use PHPUnit\Framework\TestCase;
 use Test\Utils\PropertyAccessor;
 
-class SynchronizerTest extends \PHPUnit_Framework_TestCase
+class SynchronizerTest extends TestCase
 {
     public function testThatAppCanBeConstructed()
     {
@@ -19,6 +20,6 @@ class SynchronizerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('/etc/hosts', PropertyAccessor::getProperty($application, 'hostsFile'));
         $this->assertSame('docker', PropertyAccessor::getProperty($application, 'tld'));
         $this->assertInstanceOf(Docker::class, PropertyAccessor::getProperty($application, 'docker'));
-        $this->assertInternalType('array', PropertyAccessor::getProperty($application, 'activeContainers'));
+        $this->assertIsArray(PropertyAccessor::getProperty($application, 'activeContainers'));
     }
 }
